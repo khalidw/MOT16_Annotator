@@ -12,7 +12,7 @@ args = vars(ap.parse_args())
 
 # Click on one corner of the image,
 # then, click on the other corner on the image.
-# The coordinates will be saved in det/det.txt
+# The coordinates will be saved in gt/gt.txt
 
 # Press 'esc' to quit
 # Press 'n' for next frame
@@ -22,7 +22,7 @@ cap = cv2.VideoCapture(args['location'])
 
 # Create a folder "det" for the detections in the same location as input video:
 path_to_detection_folder, _ = os.path.split(args['location'])
-new_path = os.path.join(path_to_detection_folder, 'det')
+new_path = os.path.join(path_to_detection_folder, 'gt')
 
 if not os.path.exists(new_path):
   os.mkdir(new_path)
@@ -42,6 +42,7 @@ cv2.setMouseCallback('img', callback)
 image_number = 0
 
 frame_number = 1
+object_id = 1 # cannot be 0 or negative
 
 #read first image
 ret, img_p = cap.read()
@@ -57,7 +58,7 @@ rf_h = h/720 # original fame height / rescaled height
 
 img_p = cv2.resize(img_p, (1280,720))
 
-with open('%s/det.txt'%(new_path),'w') as out_file:
+with open('%s/gt.txt'%(new_path),'w') as out_file:
   while (cap.isOpened()):
 
     img = img_p.copy()
@@ -99,8 +100,8 @@ with open('%s/det.txt'%(new_path),'w') as out_file:
       ymax = max(a[1],b[1])*rf_h
       width = xmax-xmin
       height = ymax-ymin
-      print('%d,-1,%.2f,%.2f,%.2f,%.2f,1,-1,-1,-1'%(frame_number,xmin,ymin,width,height),file=out_file)
-      print(f"{frame_number}, -1, {xmin}, {ymin}, {width}, {height}, 1, -1, -1, -1")
+      print('%d,%d,%.2f,%.2f,%.2f,%.2f,1,-1,-1,-1'%(frame_number,object_id,xmin,ymin,width,height),file=out_file)
+      print(f"{frame_number}, {object_id}, {xmin}, {ymin}, {width}, {height}, 1, -1, -1, -1")
 
       #reset the click list
       click_list = []
@@ -120,6 +121,20 @@ with open('%s/det.txt'%(new_path),'w') as out_file:
       if not ret:
         break
       img_p = cv2.resize(img, (1280,720))
+      
+    # code to increment object id
+    # press 'i' to increment object ID
+    # 105 is ascii code for 'i'
+    if k == 105:
+         object_id += 1
+         print("object_id incremented to %d" %(object_id))
+         
+    # code to increment object id
+    # press 'd' to increment object ID
+    # 100 is ascii code for 'd'
+    if k == 100:
+         object_id -= 1
+         print("object_id decremented to %d" %(object_id))
 
 cap.release()
 cv2.destroyAllWindows()
