@@ -37,7 +37,7 @@ FM | Total number of switches from tracked to not tracked (fragmentation)
 You can read more about these metrics [here](https://arxiv.org/pdf/1504.01942.pdf)
 
 # Intended updates
-- [ ] Ability to assign ID to ground truth objects 
+- [x] Ability to assign ID to ground truth objects 
 - [ ] Display bounding box for the current frame
 - [ ] Option to remove incorrectly marked bounding box
 - [ ] Display current frame and total frames on the top left
