@@ -45,9 +45,13 @@ python MOT-Annotation.py -l d:\myVideo.mp4
 ````
 
 A new folder `gt` will be created in the same folder as the video. All the annotations would be saved in file `gt.txt` inside folder `gt`.
+
 To increment object id press 'i'
+
 To decrement object id press 'd'
+
 To move to next frame press 'n'
+
 To quit the app, press 'esc'
 
 # Intended updates
