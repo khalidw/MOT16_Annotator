@@ -36,6 +36,20 @@ FM | Total number of switches from tracked to not tracked (fragmentation)
 
 You can read more about these metrics [here](https://arxiv.org/pdf/1504.01942.pdf)
 
+# How to run
+This application uses OpenCV, therefore you should install the package in your python installation.
+
+On windows computer, open cmd and browse to the folder where `MOT-Annotation.py` is saved, use the following command to run the application.
+````
+python MOT-Annotation.py -l d:\myVideo.mp4
+````
+
+A new folder `gt` will be created in the same folder as the video. All the annotations would be saved in file `gt.txt` inside folder `gt`.
+To increment object id press 'i'
+To decrement object id press 'd'
+To move to next frame press 'n'
+To quit the app, press 'esc'
+
 # Intended updates
 - [x] Ability to assign ID to ground truth objects 
 - [ ] Display bounding box for the current frame
